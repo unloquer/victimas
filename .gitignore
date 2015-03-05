@@ -1,4 +1,5 @@
 node_modules
+client/js/bower_components/
 npm-debug.log
 docular_generated
 .DS_Store

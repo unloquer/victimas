@@ -38,6 +38,11 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
+                            files: [
+                                'js/bower_components/leaflet/dist/leaflet.css'
+                            ]
+                        },
+                        {
                             insertBefore: '#loadBefore',
                             name: 'victimas.directives',
                             files: [
