@@ -99,7 +99,6 @@ angular.module('victimas')
         dashArray: '3',
         fillOpacity: 0.6,
         fillColor: getColor(feature.properties.AREA)
-        //fillColor: getColor(0.25)
       };
     }
 
