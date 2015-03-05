@@ -1,0 +1,36 @@
+{
+  "reporte" : {
+    "properties" : {
+      "_responsable" : {
+        "type" : "string",
+        "index": "not_analyzed"
+      },
+      "_tipificacion" : {
+        "type" : "string",
+        "index": "not_analyzed"
+      },
+      "_ubicacion" : {
+        "type" : "string"
+      },
+      "descripcion" : {
+        "type" : "string"
+      },
+      "fecha" : {
+        "type" : "date",
+        "format" : "dateOptionalTime"
+      },
+      "responsable" : {
+        "type" : "string"
+      },
+      "tipificacion" : {
+        "type" : "string"
+      },
+      "ubicacion" : {
+        "type" : "string"
+      },
+      "victimas" : {
+        "type" : "string"
+      }
+    }
+  }
+}

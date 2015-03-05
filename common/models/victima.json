@@ -1,0 +1,19 @@
+{
+  "name": "victima",
+  "plural": "victimas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "cedula": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

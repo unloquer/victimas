@@ -1,0 +1,41 @@
+{
+  "name": "reporte",
+  "plural": "reportes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "descripcion": {
+      "type": "string"
+    },
+    "fecha": {
+      "type": "date"
+    },
+    "responsable": {
+      "type": "string"
+    },
+    "tipificacion": {
+      "type": "string"
+    },
+    "_ubicacion": {
+      "type": "string"
+    },
+    "_responsable": {
+      "type": "string"
+    },
+    "_tipificacion": {
+      "type": "string"
+    },
+    "ubicacion": {
+      "type": "string"
+    },
+    "victimas": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

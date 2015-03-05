@@ -1,0 +1,29 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "victimas-es": {
+    "host": "cos",
+    "name": "victimas-es",
+    "index": "victimas",
+    "connector": "elastic-search",
+    "filters": {
+      "_ubicacion": {
+        "terms": {
+          "_ubicacion": ""
+        }
+      },
+      "_responsable": {
+        "terms": {
+          "_responsable": ""
+        }
+      },
+      "_tipificacion": {
+        "terms": {
+          "_tipificacion": ""
+        }
+      }
+    }
+  }
+}
