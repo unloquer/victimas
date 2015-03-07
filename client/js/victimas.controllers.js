@@ -1,6 +1,6 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$rootScope', '$scope', 'dataService', 'leafletData', function ($rootScope, $scope, dataService, leafletData) {
+  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function($rootScope, $scope, dataService, leafletData) {
     $scope.status = {};
     $scope.status.open = true;
     $scope.oneAtATime = false;
