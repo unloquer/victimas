@@ -32,8 +32,7 @@
                                     Tipificaciones <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                                 </accordion-heading>
                                 <div class="input-group">
-                                    <select multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" data-placeholder="Selecciona Tipificaciones">
-                                    <option ng-repeat="t in filtros.tipificaciones" value="{{t.codigo}}">{{t.nombre}}</option>
+                                   <select chosen multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.tipificaciones" ng-model="tipificaciones" data-placeholder="Selecciona Tipificaciones">
                                     </select>
                                 </div>
                             </accordion-group>
@@ -42,8 +41,7 @@
                                     Responsables <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                                 </accordion-heading>
                                 <div class="input-group">
-                                    <select multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" data-placeholder="Selecciona Responsables">
-                                        <option ng-repeat="t in filtros.responsables" value="{{t.codigo}}">{{t.nombre}}</option>
+                                   <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.responsables" ng-model="responsables" data-placeholder="Selecciona Responsables">
                                     </select>
                                 </div>
                             </accordion-group>

@@ -1,18 +1,11 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function ($scope, dataService, leafletData) {
+  .controller('VictimasCtrl', ['$rootScope', '$scope', 'dataService', 'leafletData', function ($rootScope, $scope, dataService, leafletData) {
     $scope.status = {};
     $scope.status.open = true;
     $scope.oneAtATime = false;
-    $scope.filtros = {};
-
-    $scope.$watch('filtros', function(current, former) {
-      setTimeout(function() {
-        $('select#filtros-tipificaciones').chosen();
-        $('select#filtros-responsables').chosen();
-        // $('select#filtros-departamentos').chosen();
-      }, 100);
-    });
+    $scope.tipificaciones = [];
+    $scope.responsables = [];
 
     dataService.filtros(function(data) {
       $scope.filtros = {
