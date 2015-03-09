@@ -1,0 +1,18 @@
+/*
+ *  curl -XPUT -H "Content-Type: application/json" http://cos:9200/victimas/_settings --data @victimas_index_settings.json
+ */
+{
+  "analysis": {
+    "analyzer": {
+      "byComma": {
+        "tokenizer": "byComma"
+      }
+    },
+    "tokenizer": {
+      "byComma": {
+        "type": "pattern",
+        "pattern": ","
+      }
+    }
+  }
+}

@@ -7,9 +7,9 @@ var es = new elasticsearch.Client({
 });
 var putMapping = require('../../utils').putMapping;
 
-var FROM_INDEX = 'nocheyniebla';
+var FROM_INDEX = 'victimas';
 var FROM_TYPE = 'reporte';
-var TO_INDEX = 'victimas';
+var TO_INDEX = 'victimas3';
 var TO_TYPE = 'reporte';
 
 var hitsCount = 0;

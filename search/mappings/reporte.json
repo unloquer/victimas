@@ -10,7 +10,8 @@
         "index": "not_analyzed"
       },
       "_ubicacion" : {
-        "type" : "string"
+        "type" : "string",
+        "analyzer": "byComma"
       },
       "descripcion" : {
         "type" : "string"
@@ -30,6 +31,9 @@
       },
       "victimas" : {
         "type" : "string"
+      },
+      "location" : {
+        "type" : "geo_point"
       }
     }
   }
