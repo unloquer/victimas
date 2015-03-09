@@ -5,7 +5,7 @@ var es = new elasticsearch.Client({
   host: 'cos:9200',
   // log: 'trace'
 });
-var putMapping = require('../../utils').putMapping;
+var putMapping = require('../utils').putMapping;
 
 var FROM_INDEX = 'victimas';
 var FROM_TYPE = 'reporte';
@@ -25,7 +25,7 @@ $a.series([
 });
 
 function deleteMapping(cb) {
-  es.indices.deleteMapping({ index: TO_INDEX, type: TO_TYPE }, cb);
+  es.indices.deleteMapping({ index: TO_INDEX, type: TO_TYPE, ignore: 404 }, cb);
 }
 
 function reindex(cb) {
