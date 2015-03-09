@@ -27,7 +27,8 @@
         "type" : "string"
       },
       "ubicacion" : {
-        "type" : "string"
+        "type" : "string",
+        "index": "not_analyzed"
       },
       "victimas" : {
         "type" : "string"
