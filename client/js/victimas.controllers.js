@@ -1,11 +1,13 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function($rootScope, $scope, dataService, leafletData) {
+  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function($scope, dataService, leafletData) {
     $scope.status = {};
     $scope.status.open = true;
     $scope.oneAtATime = false;
     $scope.tipificaciones = [];
     $scope.responsables = [];
+
+    console.log(dataService);
 
     dataService.filtros(function(data) {
       $scope.filtros = {
