@@ -14,6 +14,17 @@ var TO_TYPE = 'reporte';
 
 var hitsCount = 0;
 
+/*
+ * Cambios manuales en `centroides_municipios_colombia.json`:
+ *
+ * Guainia - Guaninía
+ * Atlantico - Atlántico
+ * La Union - La Unión
+ * Tuluá - Tulua
+ * Jamundí - Jamundi
+ * El Aguila - El Águila
+ * Lebrija - Lebríja
+ */
 var municipios = require('./data/centroides_municipios_colombia');
 
 function normalize(str) {
@@ -28,7 +39,7 @@ function normalize(str) {
 
 var query = function(depto, municipio) {
   return {
-    "size": 500,
+    "size": 1000,
     "query": {
       "filtered": {
         "query": {"match_all": {}},
@@ -36,12 +47,12 @@ var query = function(depto, municipio) {
           "and": [
             {
               "terms": {
-                "_ubicacion": normalize(depto)
+                "_ubicacion": depto.toLowerCase() // normalize(depto)
               }
             },
             { "terms":
               {
-                "_ubicacion": normalize(municipio)
+                "_ubicacion": municipio.toLowerCase() // normalize(municipio)
               }
             }
           ]

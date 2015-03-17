@@ -7,7 +7,7 @@ angular.module('victimas')
     $scope.tipificaciones = [];
     $scope.responsables = [];
 
-    dataService.filtros(function(data) {
+      dataService.filtros(function(data) {
       $scope.filtros = {
         'tipificaciones': data[0].filtros,
         'responsables': data[1].filtros,
