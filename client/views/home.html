@@ -31,6 +31,20 @@
                                 <accordion-heading>
                                     Tipificaciones <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                                 </accordion-heading>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Tipificación</th>
+                                        <th>Casos</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="s in top.tipificaciones|limitTo:5">
+                                        <td>{{s.key}}</td>
+                                        <td class="text-navy"> {{s.count}} </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                                 <div class="input-group">
                                    <select chosen multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.tipificaciones" ng-model="tipificaciones" data-placeholder="Selecciona Tipificaciones">
                                     </select>
@@ -40,8 +54,22 @@
                                 <accordion-heading>
                                     Responsables <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                                 </accordion-heading>
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Responsable</th>
+                                        <th>Casos</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="s in stats.aggs.responsable|limitTo:5">
+                                        <td>{{s.key}}</td>
+                                        <td class="text-navy"> {{s.doc_count}} </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                                 <div class="input-group">
-                                   <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.responsables" ng-model="responsables" data-placeholder="Selecciona Responsables">
+                                   <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre as t.nombre for t in filtros.responsables" ng-model="responsables" data-placeholder="Selecciona Responsables">
                                     </select>
                                 </div>
                             </accordion-group>

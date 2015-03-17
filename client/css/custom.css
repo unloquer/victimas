@@ -5,3 +5,7 @@
 #filtros .input-group {
 	display: block;
 }
+
+#page-wrapper {
+	margin-left: 0;
+}

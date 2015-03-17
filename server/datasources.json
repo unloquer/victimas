@@ -6,7 +6,7 @@
   "victimas-es": {
     "host": "cos",
     "name": "victimas-es",
-    "index": "victimas",
+    "index": "victimas2",
     "connector": "elastic-search",
     "filters": {
       "_ubicacion": {
@@ -22,6 +22,29 @@
       "_tipificacion": {
         "terms": {
           "_tipificacion": ""
+        }
+      }
+    },
+    "aggs": {
+      "ubicacion": {
+        "terms": {
+            "field": "ubicacion",
+            "size": 500,
+            "shard_size": 2500
+        }
+      },
+      "responsable": {
+        "terms": {
+            "field": "_responsable",
+            "size": 100,
+            "shard_size": 500
+        }
+      },
+      "tipificacion": {
+        "terms": {
+          "field": "_tipificacion",
+          "size": 50,
+          "shard_size": 500
         }
       }
     }

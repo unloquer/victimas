@@ -1,19 +1,47 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function($scope, dataService, leafletData) {
+  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', 'Reporte', function($scope, dataService, leafletData, Reporte) {
+    $scope.top = {};
     $scope.status = {};
     $scope.status.open = true;
     $scope.oneAtATime = false;
     $scope.tipificaciones = [];
     $scope.responsables = [];
 
-      dataService.filtros(function(data) {
+    $scope.$on('chosen:updated', function(e, args) {
+      $scope[args.field] = args.selected;
+      console.log($scope.tipificaciones);
+      console.log($scope.responsables);
+    });
+
+    dataService.filtros(function(data) {
       $scope.filtros = {
         'tipificaciones': data[0].filtros,
         'responsables': data[1].filtros,
         'departamentos': data[2].filtros
       };
     });
+
+    Reporte.find({}, function(data) {
+      $scope.stats = data.pop();
+      $scope.aggs = $scope.stats.aggs;
+      $scope.reportes = data;
+      resolverTipificaciones($scope.aggs.tipificacion, 5);
+    });
+
+    function resolverTipificaciones(t, n) {
+      var top_n = _.take(t, n);
+      $scope.top.tipificaciones = top_n.map(function(e) {
+        return {
+          key: (function() {
+            return _.pluck(_.where($scope.filtros.tipificaciones, { codigo: e.key }), 'nombre').shift();
+          })(),
+          count: e.doc_count
+        };
+      });
+      console.log($scope.filtros.tipificaciones);
+      console.log($scope.top.tipificaciones);
+    };
 
     $scope.layers = {
       baselayers: {

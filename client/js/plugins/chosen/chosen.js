@@ -56,6 +56,10 @@
                         return element.trigger('chosen:updated');
                     } else {
                         chosen = element.chosen(options).data('chosen');
+                        console.log(chosen);
+                        element.change(function(e, data) {
+                            scope.$emit('chosen:updated', { field: attr.ngModel, selected: ngModel.$modelValue });
+                        });
                         return defaultText = chosen.default_text;
                     }
                 };
@@ -89,6 +93,7 @@
                     match = attr.ngOptions.match(NG_OPTIONS_REGEXP);
                     valuesExpr = match[7];
                     return scope.$watchCollection(valuesExpr, function(newVal, oldVal) {
+                        console.log('here');
                         if (angular.isUndefined(newVal)) {
                             return startLoading();
                         } else {
