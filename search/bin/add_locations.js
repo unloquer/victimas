@@ -81,7 +81,7 @@ function updateLocation(cb) {
       type: FROM_TYPE,
       body: query(m.DEPTO, m.NOMBRE)
     }, function(err, results) {
-      console.log(results.hits.total);
+      console.log(results.hits.hits.total);
       var bulk = _.flatten(results.hits.hits.map(function(doc) {
         doc._source.location = [ m.y, m.x ];
         doc._source.DIVIPOLA = m.DIVIPOLA;
