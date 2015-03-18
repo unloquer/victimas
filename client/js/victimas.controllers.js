@@ -7,6 +7,7 @@ angular.module('victimas')
     $scope.oneAtATime = false;
     $scope.tipificaciones = [];
     $scope.responsables = [];
+    $scope.departamentos = [];
 
     $scope.$on('chosen:updated', function(e, args) {
       $scope[args.field] = args.selected;
@@ -25,6 +26,7 @@ angular.module('victimas')
     Reporte.find({}, function(data) {
       $scope.stats = data.pop();
       $scope.aggs = $scope.stats.aggs;
+      console.log($scope.aggs);
       $scope.reportes = data;
       resolverTipificaciones($scope.aggs.tipificacion, 5);
     });
@@ -39,8 +41,6 @@ angular.module('victimas')
           count: e.doc_count
         };
       });
-      console.log($scope.filtros.tipificaciones);
-      console.log($scope.top.tipificaciones);
     };
 
     $scope.layers = {
@@ -84,6 +84,8 @@ angular.module('victimas')
     }
 
     function getColor(d) {
+      // var d =
+
       return (
         d > 30000 ? '#800026' :
         d > 15000 ? '#BD0026' :
@@ -113,6 +115,7 @@ angular.module('victimas')
     }
 
     function style(feature) {
+      // console.log(feature.properties);
       return {
         weight: 1,
         opacity: 1,

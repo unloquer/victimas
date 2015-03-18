@@ -35,6 +35,10 @@
       },
       "location" : {
         "type" : "geo_point"
+      },
+      "DIVIPOLA": {
+        "type": "string",
+        "index": "not_analyzed"
       }
     }
   }

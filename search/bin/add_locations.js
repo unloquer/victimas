@@ -84,6 +84,7 @@ function updateLocation(cb) {
       console.log(results.hits.total);
       var bulk = _.flatten(results.hits.hits.map(function(doc) {
         doc._source.location = [ m.y, m.x ];
+        doc._source.DIVIPOLA = m.DIVIPOLA;
         return [
           { index: { _id: doc._id, _index: TO_INDEX, _type: TO_TYPE } },
           doc._source
