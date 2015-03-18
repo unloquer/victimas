@@ -13,6 +13,7 @@ angular.module('victimas')
       $scope[args.field] = args.selected;
       console.log($scope.tipificaciones);
       console.log($scope.responsables);
+      console.log($scope.departamentos);
     });
 
     dataService.filtros(function(data) {
@@ -29,6 +30,11 @@ angular.module('victimas')
       console.log($scope.aggs);
       $scope.reportes = data;
       resolverTipificaciones($scope.aggs.tipificacion, 5);
+
+      leafletData.getMap().then(function(map) {
+        omnivore.topojson('/data/municipios.topojson', null, layer)
+        .addTo(map);
+      });
     });
 
     function resolverTipificaciones(t, n) {
@@ -83,17 +89,21 @@ angular.module('victimas')
       }
     }
 
-    function getColor(d) {
-      // var d =
+    function getColorByCasos(id) {
+      var n = _.pluck(_.where($scope.aggs.DIVIPOLA, { key: parseInt(id).toString() }), 'doc_count').shift();
+      console.log(id,n);
+      return getColor(n);
+    }
 
+    function getColor(d) {
       return (
-        d > 30000 ? '#800026' :
-        d > 15000 ? '#BD0026' :
-        d > 7500 ? '#E31A1C' :
-        d > 3750 ? '#FC4E2A' :
-        d > 1800 ? '#FD8D3C' :
-        d > 900 ? '#FEB24C' :
-        d > 400 ? '#FED976' : 'white' //'#FFEDA0'
+        d > 600 ? '#800026' :
+        d > 400 ? '#BD0026' :
+        d > 200 ? '#E31A1C' :
+        d > 80 ? '#FC4E2A' :
+        d > 50 ? '#FD8D3C' :
+        d > 20 ? '#FEB24C' :
+        d > 0 ? '#FED976' : 'white' //'#FFEDA0'
       );
     }
 
@@ -122,13 +132,7 @@ angular.module('victimas')
         color: 'white',
         dashArray: '3',
         fillOpacity: 0.6,
-        fillColor: getColor(feature.properties.AREA)
+        fillColor: getColorByCasos(feature.properties.DIVIPOLA)
       };
     }
-
-    leafletData.getMap().then(function(map) {
-      omnivore.topojson('/data/municipios.topojson', null, layer)
-        .addTo(map);
-    });
-
   }]);

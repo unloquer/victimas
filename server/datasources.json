@@ -29,29 +29,29 @@
       "ubicacion": {
         "terms": {
             "field": "ubicacion",
-            "size": 500,
-            "shard_size": 2500
+            "size": 50,
+            "shard_size": 250
         }
       },
       "DIVIPOLA": {
         "terms": {
             "field": "DIVIPOLA",
-            "size": 500,
-            "shard_size": 2500
+            "size": 1500,
+            "shard_size": 1500
         }
       },
       "responsable": {
         "terms": {
             "field": "_responsable",
-            "size": 100,
-            "shard_size": 500
+            "size": 50,
+            "shard_size": 250
         }
       },
       "tipificacion": {
         "terms": {
           "field": "_tipificacion",
           "size": 50,
-          "shard_size": 500
+          "shard_size": 250
         }
       }
     }
