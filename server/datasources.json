@@ -33,6 +33,13 @@
             "shard_size": 2500
         }
       },
+      "DIVIPOLA": {
+        "terms": {
+            "field": "DIVIPOLA",
+            "size": 500,
+            "shard_size": 2500
+        }
+      },
       "responsable": {
         "terms": {
             "field": "_responsable",
