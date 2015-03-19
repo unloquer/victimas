@@ -77,7 +77,7 @@ function updateLocation(cb) {
       type: FROM_TYPE,
       body: query(m.DEPTO, m.NOMBRE)
     }, function(err, results) {
-	console.log([m.DEPTO.toLowerCase(), m.NOMBRE.toLowerCase(), results.hits.total, m.DIVIPOLA]);
+	    console.log([m.DEPTO.toLowerCase(), m.NOMBRE.toLowerCase(), results.hits.total, m.DIVIPOLA]);
       var bulk = _.flatten(results.hits.hits.map(function(doc) {
         doc._source.location = [ m.y, m.x ];
         doc._source.DIVIPOLA = m.DIVIPOLA;
