@@ -46,7 +46,7 @@
                                     </tbody>
                                 </table>
                                 <div class="input-group">
-                                   <select chosen multiple id="filtros-ubicaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre as t.nombre for t in filtros.departamentos" ng-model="departamentos" data-placeholder="Selecciona Departamentos">
+                                   <select chosen multiple id="filtros-ubicaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre.toLowerCase() as t.nombre for t in filtros.departamentos" ng-model="selected.ubicacion" data-placeholder="Selecciona Departamentos">
                                     </select>
                                 </div>
                             </accordion-group>
@@ -69,7 +69,7 @@
                                     </tbody>
                                 </table>
                                 <div class="input-group">
-                                   <select chosen multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.tipificaciones" ng-model="tipificaciones" data-placeholder="Selecciona Tipificaciones">
+                                   <select chosen multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.tipificaciones" ng-model="selected.tipificacion" data-placeholder="Selecciona Tipificaciones">
                                     </select>
                                 </div>
                             </accordion-group>
@@ -92,7 +92,7 @@
                                     </tbody>
                                 </table>
                                 <div class="input-group">
-                                   <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre as t.nombre for t in filtros.responsables" ng-model="responsables" data-placeholder="Selecciona Responsables">
+                                   <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre as t.nombre for t in filtros.responsables" ng-model="selected.responsable" data-placeholder="Selecciona Responsables">
                                     </select>
                                 </div>
                             </accordion-group>

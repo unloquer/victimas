@@ -5,15 +5,30 @@ angular.module('victimas')
     $scope.status = {};
     $scope.status.open = true;
     $scope.oneAtATime = false;
-    $scope.tipificaciones = [];
-    $scope.responsables = [];
-    $scope.departamentos = [];
+    $scope.selected = {
+      tipificacion: [],
+      responsable: [],
+      ubicacion: []
+    };
 
     $scope.$on('chosen:updated', function(e, args) {
-      $scope[args.field] = args.selected;
-      console.log($scope.tipificaciones);
-      console.log($scope.responsables);
-      console.log($scope.departamentos);
+      var field = args.field.split('.').pop();
+      $scope.selected[field] = args.selected;
+
+      var filter = { filter: {}};
+      Object.keys($scope.selected).forEach(function(f) {
+        if($scope.selected[f].length) {
+          filter.filter['_'+f] = $scope.selected[f].join(',');
+        }
+      });
+
+      console.log(JSON.stringify(filter, null, 2));
+      Reporte.find(filter, function(data) {
+        $scope.stats = data.pop();
+        $scope.aggs = $scope.stats.aggs;
+        resolverTipificaciones($scope.aggs.tipificacion, 5);
+        layer.setStyle(style);
+      });
     });
 
     dataService.filtros(function(data) {
@@ -91,7 +106,6 @@ angular.module('victimas')
 
     function getColorByCasos(id) {
       var n = _.pluck(_.where($scope.aggs.DIVIPOLA, { key: parseInt(id).toString() }), 'doc_count').shift();
-      console.log(id,n);
       return getColor(n);
     }
 
