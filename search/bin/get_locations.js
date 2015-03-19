@@ -14,7 +14,7 @@ var TO_TYPE = 'reporte';
 
 var hitsCount = 0;
 
-var municipios = require('./data/centroides_municipios_colombia');
+var municipios = require('./data/locations_zero_hits');
 
 function normalize(str) {
   var stop = ['san', 'santa', 'de', 'la', 'el', 'lo', 'los', 'las', 'y', 'puerto'];
@@ -61,16 +61,16 @@ var query = function(depto, municipio) {
 
 // Run
 $a.series([
-  deleteMapping,
-  putMapping(es, { index: TO_INDEX, type: TO_TYPE }, 'reporte'),
-  updateLocation
+  //deleteMapping,
+  //putMapping(es, { index: TO_INDEX, type: TO_TYPE }, 'reporte'),
+  getLocation
 ], function(err) {
   if(err) console.log(err);
   else console.log('Reindexing Successful!');
   process.exit();
 });
 
-function updateLocation(cb) {
+function getLocation(cb) {
   $a.eachSeries(municipios, function(m, _cb) {
     es.search({
       index: FROM_INDEX,
