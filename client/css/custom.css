@@ -9,3 +9,22 @@
 #page-wrapper {
 	margin-left: 0;
 }
+
+@media (min-width: 768px) {
+  .carousel-image {
+    height: 200px;
+  }
+  .carousel-image img {
+    width: 100%;
+  }
+}
+ 
+@media (min-width: 1024px) {
+  .carousel-image {
+    height: 550px;
+  }
+  .carousel-image img {
+    width: 100%;
+  }
+}
+ 
