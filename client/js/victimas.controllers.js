@@ -22,7 +22,6 @@ angular.module('victimas')
         }
       });
 
-      console.log(JSON.stringify(filter, null, 2));
       Reporte.find(filter, function(data) {
         $scope.stats = data.pop();
         $scope.aggs = $scope.stats.aggs;
