@@ -53,6 +53,13 @@
           "size": 50,
           "shard_size": 250
         }
+      },
+      "tiempo": {
+        "date_histogram": {
+          "field": "fecha",
+          "interval": "month",
+          "format" : "yyyy-MM-dd"
+        }
       }
     }
   }

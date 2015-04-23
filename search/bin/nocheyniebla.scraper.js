@@ -18,13 +18,14 @@ module.exports = function scrapeNocheyniebla(__cb) {
     body,
     currentDepto,
     cookie,
-    csrf;
+    csrf,
+    START_AT = ['', ''];
 
   var INDEX = 'victimas';
   var TYPE = 'reporte';
   var opts = { index: INDEX, type: TYPE };
   // Start at given [Depto,Tipificacion]
-  var START_AT = ['91', 'A:1:10'];
+  // START_AT = ['91', 'A:1:10'];
 
   function store(records, cb) {
     var bulk = {
@@ -145,7 +146,7 @@ module.exports = function scrapeNocheyniebla(__cb) {
     utils.putMapping(es, opts)
   ], function(err) {
     err && (console.log(err) && process.exit());
-    agent.get('https://www.nocheyniebla.org/consulta_web.php', function(res) {
+    agent.get('https://www.nocheyniebla.org/consulta_web.php', function(err, res) {
       var $ = cheerio.load(res.text);
       body = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>'+$('form').toString()+'</body></html>';
 
@@ -161,8 +162,8 @@ module.exports = function scrapeNocheyniebla(__cb) {
       }).toArray();
       departamentos = _.compact(departamentos);
 
-      var deptoIndex = departamentos.indexOf(START_AT[0]);
-      var tipifIndex = clasificaciones.indexOf(START_AT[1]);
+      var deptoIndex = START_AT[0] ? departamentos.indexOf(START_AT[0]) : departamentos[0];
+      var tipifIndex = START_AT[1] ? clasificaciones.indexOf(START_AT[1]) : clasificaciones[0];
 
       departamentos.splice(0, deptoIndex);
       clasificaciones.unshift(0);

@@ -41,7 +41,7 @@ angular.module('victimas')
     Reporte.find({}, function(data) {
       $scope.stats = data.pop();
       $scope.aggs = $scope.stats.aggs;
-      console.log($scope.aggs);
+      // console.log($scope.aggs);
       $scope.reportes = data;
       resolverTipificaciones($scope.aggs.tipificacion, 5);
 
@@ -49,6 +49,9 @@ angular.module('victimas')
         omnivore.topojson('/data/municipios.topojson', null, layer)
         .addTo(map);
       });
+
+      setupHistogram();
+
     });
 
     function resolverTipificaciones(t, n) {
@@ -147,5 +150,32 @@ angular.module('victimas')
         fillOpacity: 0.6,
         fillColor: getColorByCasos(feature.properties.DIVIPOLA)
       };
+    }
+
+    function setupHistogram() {
+      var ds = crossfilter($scope.aggs.tiempo);
+      var dateFormat = d3.time.format('%Y-%m-%d');
+      var meses = ds.dimension(function(d) {
+        var parsedDate = dateFormat.parse(d.key_as_string);
+        return d3.time.month(parsedDate);
+      });
+
+      var casosPorMesGroup = meses.group().reduceSum(function(d) {
+        return d.doc_count;
+      });
+
+      var chart = dc.barChart('#histograma-casos');
+      chart.width(903)
+        .height(40)
+        .margins({top: 0, right: 1, bottom: 17, left: 0})
+        .dimension(meses)
+        .group(casosPorMesGroup)
+        .gap(2)
+        .x(d3.time.scale().domain([new Date(2001, 0, 1), new Date(2014, 5, 30)]))
+        .round(d3.time.month.round)
+        // .alwaysUseRounding(true)
+        .xUnits(d3.time.months);
+      console.log(chart.colors(["#1ab394"]));
+      dc.renderAll();
     }
   }]);

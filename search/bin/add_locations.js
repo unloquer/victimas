@@ -7,7 +7,7 @@ var es = new elasticsearch.Client({
 });
 var putMapping = require('../utils').putMapping;
 
-var FROM_INDEX = 'victimas3';
+var FROM_INDEX = 'victimas';
 var FROM_TYPE = 'reporte';
 var TO_INDEX = 'victimas2';
 var TO_TYPE = 'reporte';
@@ -77,6 +77,7 @@ function updateLocation(cb) {
       type: FROM_TYPE,
       body: query(m.DEPTO, m.NOMBRE)
     }, function(err, results) {
+      console.log(results);
 	    console.log([m.DEPTO.toLowerCase(), m.NOMBRE.toLowerCase(), results.hits.total, m.DIVIPOLA]);
       var bulk = _.flatten(results.hits.hits.map(function(doc) {
         doc._source.location = [ m.y, m.x ];
