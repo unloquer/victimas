@@ -21,90 +21,11 @@
                     </li>
                 </ul>
             </nav>
-        </div>
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="row" id="filtros">
-                        <accordion close-others="oneAtATime">
-                            <accordion-group is-open="status.open">
-                                <accordion-heading>
-                                    Ubicaciones <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                                </accordion-heading>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Ubicación</th>
-                                        <th>Casos</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="s in stats.aggs.ubicacion|limitTo:5">
-                                        <td>{{s.key}}</td>
-                                        <td class="text-navy"> {{s.doc_count}} </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="input-group">
-                                   <select chosen multiple id="filtros-ubicaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre.toLowerCase() as t.nombre for t in filtros.departamentos" ng-model="selected.ubicacion" data-placeholder="Selecciona Departamentos">
-                                    </select>
-                                </div>
-                            </accordion-group>
-                            <accordion-group is-open="status.open">
-                                <accordion-heading>
-                                    Tipificaciones <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                                </accordion-heading>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Tipificación</th>
-                                        <th>Casos</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="s in top.tipificaciones|limitTo:5">
-                                        <td>{{s.key}}</td>
-                                        <td class="text-navy"> {{s.count}} </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="input-group">
-                                   <select chosen multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.tipificaciones" ng-model="selected.tipificacion" data-placeholder="Selecciona Tipificaciones">
-                                    </select>
-                                </div>
-                            </accordion-group>
-                            <accordion-group is-open="status.open">
-                                <accordion-heading>
-                                    Responsables <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                                </accordion-heading>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Responsable</th>
-                                        <th>Casos</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="s in stats.aggs.responsable|limitTo:5">
-                                        <td>{{s.key}}</td>
-                                        <td class="text-navy"> {{s.doc_count}} </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="input-group">
-                                   <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre as t.nombre for t in filtros.responsables" ng-model="selected.responsable" data-placeholder="Selecciona Responsables">
-                                    </select>
-                                </div>
-                            </accordion-group>
-                        </accordion>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <leaflet center="center" layers="layers" height="600px"></leaflet>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-        </div>
-    </div>
-</div>
+          </div>
+          <div class="wrapper wrapper-content animated fadeInRight">
+          <div ui-view=""> </div>
+          <div ng-include src="'views/icons.html'"></div>
+          <div class="footer"> </div>
+      </div>
+    </div><!-- page_wrapper -->
+</div><!-- wrapper -->

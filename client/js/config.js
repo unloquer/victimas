@@ -16,58 +16,70 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
   });
 
   $stateProvider
-    .state('index', {
-      abstract: true,
-      url: "/index",
-      templateUrl: "views/common/content.html",
-    })
     .state('entrada', {
       url: "/entrada",
       templateUrl: "views/entrada.html",
       data: { pageTitle: 'Victimas del Conflicto Armado en Colombia - Entrada' }
     })
-    .state('index.minor', {
-      url: "/minor",
-      templateUrl: "views/minor.html",
-      data: { pageTitle: 'Example view' }
-    })
     .state('victimas', {
+      abstract: true,
       url: "/victimas",
-      templateUrl: "views/home.html",
-      resolve: {
-        uiData: function($rootScope, dataService) {
-          dataService.filtros(function(data) {
-            $rootScope.filtros = {
-              'tipificaciones': data[0].filtros,
-              'responsables': data[1].filtros,
-              'departamentos': data[2].filtros
-            };
-          });
-        },
-        loadPlugin: function ($ocLazyLoad) {
-          return $ocLazyLoad.load([
-            {
-              files: [
-                'js/bower_components/leaflet/dist/leaflet.css'
-              ]
-            },
-            {
-              insertBefore: '#loadBefore',
-              name: 'victimas.directives',
-              files: [
-                'css/plugins/chosen/chosen.css',
-                'js/plugins/chosen/chosen.jquery.js',
-                'js/plugins/chosen/chosen.js'
-              ]
-            }
-          ]);
+      cache: false,
+      templateUrl: "views/home.html"
+    })
+    .state('victimas.mapa', {
+        url: "/mapa",
+        cache: false,
+        templateUrl: "views/mapa.html",
+        resolve: {
+          uiData: function($rootScope, dataService) {
+            dataService.filtros(function(data) {
+              $rootScope.filtros = {
+                'tipificaciones': data[0].filtros,
+                'responsables': data[1].filtros,
+                'departamentos': data[2].filtros
+              };
+            });
+          },
+          loadPlugin: function ($ocLazyLoad) {
+            return $ocLazyLoad.load([
+              {
+                files: [
+                  'js/bower_components/leaflet/dist/leaflet.css'
+                ]
+              },
+              {
+                insertBefore: '#loadBefore',
+                name: 'victimas.directives',
+                files: [
+                  'css/plugins/chosen/chosen.css',
+                  'js/plugins/chosen/chosen.jquery.js',
+                  'js/plugins/chosen/chosen.js'
+                ]
+              }
+            ]);
+          }
         }
-      }
+    })
+    .state('victimas.ubicacion', {
+        url: "/ubicacion",
+        cache: false,
+        templateUrl: "views/ubicacion.html"
+    })
+    .state('victimas.tipificaciones', {
+        url: "/tipificaciones",
+        cache: false,
+        templateUrl: "views/ubicacion.html"
+    })
+    .state('victimas.responsables', {
+        url: "/responsables",
+        cache: false,
+        templateUrl: "views/ubicacion.html"
+      });
+  }
+  angular
+    .module('victimas')
+    .config(config)
+    .run(function($rootScope, $state, dataService) {
+      $rootScope.$state = $state;
     });
-}
-angular
-  .module('victimas')
-  .config(config)
-  .run(function($rootScope, $state, dataService) {
-    $rootScope.$state = $state;
-  });

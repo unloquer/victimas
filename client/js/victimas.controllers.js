@@ -1,15 +1,50 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', 'Reporte', function($scope, dataService, leafletData, Reporte) {
+  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', 'Reporte', '$state', function($scope, dataService, leafletData, Reporte, $state) {
     $scope.top = {};
     $scope.status = {};
     $scope.status.open = true;
     $scope.oneAtATime = false;
+    $scope.current_vis  = "mapa";
+    $scope.vis_title    = null;
+    $scope.vis_subtitle = null;
+
+    $scope.color_palette = [
+      "#FFED6F",
+      "#CCEBC5",
+      "#BC80BD",
+      "#D9D9D9",
+      "#FCCDE5",
+      "#80B1D3",
+      "#FDB462",
+      "#B3DE69",
+      "#FB8072",
+      "#BEBADA",
+      "#FFFFB3",
+      "#8DD3C7",
+      "#D0533D",
+      "#415354",
+      "#CD5B89"
+    ];
     $scope.selected = {
       tipificacion: [],
       responsable: [],
       ubicacion: []
     };
+
+
+    if ($state.current.name) {
+      if ($state.current.name.indexOf('victimas.') > -1) {
+        $scope.current_vis = ($state.current.name.substr('victimas.'.length));
+      }
+    }
+
+    $scope.$on('$stateChangeSuccess', function () {
+      console.log("route changed");
+      if ($scope.current_vis == 'mapa') {
+        $scope.load_map();
+      }
+    });
 
     $scope.$on('chosen:updated', function(e, args) {
       var field = args.field.split('.').pop();
@@ -39,18 +74,30 @@ angular.module('victimas')
       };
     });
 
-    Reporte.find({}, function(data) {
-      $scope.stats = data.pop();
-      $scope.aggs = $scope.stats.aggs;
-      console.log($scope.aggs);
-      $scope.reportes = data;
-      resolverTipificaciones($scope.aggs.tipificacion, 5);
+    $scope.load_map = function() {
+        leafletData.getMap().then(function(map) {
+          omnivore.topojson('/data/municipios.topojson', null, layer)
+          .addTo(map);
+        });
+    };
 
-      leafletData.getMap().then(function(map) {
-        omnivore.topojson('/data/municipios.topojson', null, layer)
-        .addTo(map);
+    $scope.load_data = function(callback) {
+      Reporte.find({}, function(data) {
+        $scope.stats = data.pop();
+        $scope.aggs = $scope.stats.aggs;
+        console.log($scope.aggs);
+        $scope.reportes = data;
+        resolverTipificaciones($scope.aggs.tipificacion, 5);
+
+        $scope.load_map();
+
+        if (callback) {
+          callback();
+        }
       });
-    });
+    };
+
+    $scope.load_data(null);
 
     function resolverTipificaciones(t, n) {
       var top_n = _.take(t, n);
@@ -82,7 +129,7 @@ angular.module('victimas')
       center: {
         lat: 4.5980478,
         lng: -74.0760867,
-        zoom: 6
+        zoom: 7
       }
     });
 
@@ -148,5 +195,156 @@ angular.module('victimas')
         fillOpacity: 0.6,
         fillColor: getColorByCasos(feature.properties.DIVIPOLA)
       };
+    }
+      $scope.set_visualization = function(visualization) {
+        $scope.current_vis = visualization;
+        $state.transitionTo('victimas.' + visualization);
+        return false;
+      }
+    
+    $scope.get_vis_data = function() {
+     //$scope.stats = $scope.$parent.stats;
+      if (! $scope.stats) {
+        $scope.load_data(function() { 
+          var content = eval_vis_data();
+          $scope.create_pie(content);
+        });
+      } else {
+          return eval_vis_data();
+      }
+    };
+
+    function eval_vis_data() {
+      var data_objects = [];
+
+      if ($scope.current_vis == "ubicacion") {
+        data_objects = $scope.stats.aggs.ubicacion;
+        $scope.vis_title    = "Casos por ubicación";
+        $scope.vis_subtitle = "Total de casos por departamento";
+      } else if ($scope.current_vis == "tipificaciones") {
+        data_objects = $scope.top.tipificaciones;
+        $scope.vis_title    = "Casos por tipo";
+        $scope.vis_subtitle = "Todos los casos según su tipo";
+      } else if ($scope.current_vis == "responsables") {
+        data_objects = $scope.stats.aggs.responsable;
+        $scope.vis_title    = "Casos por responsables";
+        $scope.vis_subtitle = "Todos los casos por sus responsables";
+      } 
+
+      var content_obj = [];
+
+      for (var i=0; i < data_objects.length; i++) {
+        var obj = {};
+        obj.label = data_objects[i].key;
+        obj.value = data_objects[i].doc_count;
+        if (data_objects[i].hasOwnProperty('count')) {
+          obj.value = data_objects[i].count;
+        }
+        obj.color = $scope.color_palette[15%i];
+        content_obj.push(obj);
+      }
+
+      return content_obj; 
+    }
+
+    $scope.create_pie = function(content) {
+        var pie = new d3pie("visualization_holder", {
+        "header": {
+          "title": {
+            "text": $scope.vis_title ,
+            "color": "#19b393",
+            "fontSize": 32,
+            "font": "open sans"
+          },
+          "subtitle": {
+            "text": $scope.vis_subtitle,
+            "color": "#676a6c",
+            "fontSize": 20,
+            "font": "open sans"
+          },
+          "titleSubtitlePadding": 10
+        },
+        "footer": {
+          "color": "#999999",
+          "fontSize": 10,
+          "font": "open sans",
+          "location": "bottom-left"
+        },
+        "size": {
+          "canvasHeight": 640,
+          "canvasWidth": 1000,
+          "pieInnerRadius": "1%",
+          "pieOuterRadius": "100%"
+        },
+        "data": {
+          "sortOrder": "value-desc",
+          "smallSegmentGrouping": {
+            "enabled": true
+          },
+            "content": content
+  /*        "content": [
+            {
+              "label": "FoxPro",
+              "value": 32170,
+              "color": "#248838"
+            },
+            {
+              "label": "vavav",
+              "value": 23322,
+              "color": "#efefef"
+            }
+          ]*/
+        },
+        "labels": {
+          "outer": {
+            "pieDistance": 32
+          },
+          "inner": {
+            "hideWhenLessThanPercentage": 3
+          },
+          "mainLabel": {
+            "font": "open sans",
+            "fontSize": 16
+          },
+          "percentage": {
+            "color": "#ffffff",
+            "decimalPlaces": 1
+          },
+          "value": {
+            "color": "#adadad",
+            "fontSize": 11
+          },
+          "lines": {
+            "enabled": true,
+            "style": "straight"
+          }
+        },
+        "tooltips": {
+          "enabled": true,
+          "type": "placeholder",
+          "string": "{label}: {value}, {percentage}%"
+        },
+        "effects": {
+          "load": {
+            "speed": 2200
+          },
+          "pullOutSegmentOnClick": {
+            "speed": 400
+          }
+        },
+        "misc": {
+          "gradient": {
+            "enabled": true,
+            "percentage": 100
+          },
+          "canvasPadding": {
+            "bottom": 30
+          },
+          "pieCenterOffset": {
+            "y": 40
+          }
+        },
+        "callbacks": {}
+      });
     }
   }]);

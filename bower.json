@@ -2,10 +2,10 @@
   "name": "victimas",
   "version": "0.0.1",
   "dependencies": {
-    "angular-leaflet-directive": "0.7.11"
+    "angular-leaflet-directive": "0.7.11",
+    "d3pie": "~0.1.6"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "resolutions": {
     "jquery": "~1.10",
     "angular": ">=1.2.23",
