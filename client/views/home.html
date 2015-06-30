@@ -1,30 +1,74 @@
 <div id="wrapper" ng-controller="VictimasCtrl">
-    <div id="page-wrapper" class="gray-bg">
+    <div id="page-wrapper" class="filter-bg">
+    <!--
         <div class="row border-bottom">
+        -->
+        <div class="row">
             <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control"
-                            name="top-search" id="top-search">
-                        </div>
-                    </form>
+                  <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                  <div ng-include src="'views/icons.html'"></div>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <a href="#">
-
-                    <i class="fa fa-sign-out"></i> Log out
-
-                </a>
-                    </li>
+                  <li><i class="fa fa-sign-out"></i>Log out</li>
                 </ul>
             </nav>
           </div>
           <div class="wrapper wrapper-content animated fadeInRight">
-          <div ui-view=""> </div>
-          <div ng-include src="'views/icons.html'"></div>
+            <div class="row">
+                  <div class="col-lg-2">
+                    
+                    <div class="filter-wrapper">
+                        <h2>Filtros</h2>
+                        <div class="row" id="filtros">
+                          
+                          <accordion close-others="oneAtATime">
+
+                              <accordion-group is-open="status.open">
+                                  <accordion-heading>
+                                      Ubicaciones <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </accordion-heading>
+                                  <div class="input-group">
+                                     <select chosen multiple id="filtros-ubicaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre.toLowerCase() as t.nombre for t in filtros.departamentos" ng-model="selected.ubicacion" data-placeholder="Selecciona Departamentos">
+                                      </select>
+                                  </div>
+                              </accordion-group>
+                              
+                              <br />
+                              
+                              <accordion-group is-open="status.open">
+                                  <accordion-heading>
+                                      Tipificaciones <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </accordion-heading>
+                                  <div class="input-group">
+                                     <select chosen multiple id="filtros-tipificaciones" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.codigo as t.nombre for t in filtros.tipificaciones" ng-model="selected.tipificacion" data-placeholder="Selecciona Tipificaciones">
+                                      </select>
+                                  </div>
+                              </accordion-group>
+                              
+                              <br />
+                              
+                              <accordion-group is-open="status.open">
+                                  <accordion-heading>
+                                      Responsables <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                  </accordion-heading>
+                                    <div class="input-group">
+                                       <select chosen multiple id="filtros-responsables" class="chosen-select" style="width:100%;" tabindex="4" ng-options="t.nombre as t.nombre for t in filtros.responsables" ng-model="selected.responsable" data-placeholder="Selecciona Responsables">
+                                        </select>
+                                    </div>
+                              </accordion-group>
+
+                          </accordion>
+
+                        </div><!-- row -->
+                    </div> <!--filter-wrapper -->
+                  
+                  </div><!-- col-lg-2 -->
+
+                  <div class="col-lg-10">
+                    <div ui-view=""> </div>
+                  </div>
+              </div><!-- row --> 
           <div class="footer"> </div>
       </div>
     </div><!-- page_wrapper -->

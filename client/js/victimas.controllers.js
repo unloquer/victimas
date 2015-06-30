@@ -198,34 +198,47 @@ angular.module('victimas')
     }
       $scope.set_visualization = function(visualization) {
         $scope.current_vis = visualization;
-        $state.transitionTo('victimas.' + visualization);
+        var first_view = $scope.getFirstViewForVisualization(visualization);
+        $state.transitionTo('visual.' + visualization + first_view);
         return false;
       }
+
+    $scope.getFirstViewForVisualization = function(vis) {
+      if (vis == "stats") {
+        return ".pie";
+      } else if (vis == "mapa") {
+        return ".cloropleth";
+      } else if (vis == "records") {
+        return "";
+      } else {
+        return "";
+      }
+    }
     
-    $scope.get_vis_data = function() {
+    $scope.get_vis_data = function(view) {
      //$scope.stats = $scope.$parent.stats;
       if (! $scope.stats) {
         $scope.load_data(function() { 
-          var content = eval_vis_data();
-          $scope.create_pie(content);
+          var content = eval_vis_data(view);
+          $scope.create_pie(content, view);
         });
       } else {
-          return eval_vis_data();
+          return eval_vis_data(view);
       }
     };
 
-    function eval_vis_data() {
+    function eval_vis_data(view) {
       var data_objects = [];
 
-      if ($scope.current_vis == "ubicacion") {
+      if (view == "ubicacion") {
         data_objects = $scope.stats.aggs.ubicacion;
         $scope.vis_title    = "Casos por ubicación";
         $scope.vis_subtitle = "Total de casos por departamento";
-      } else if ($scope.current_vis == "tipificaciones") {
+      } else if (view == "tipificaciones") {
         data_objects = $scope.top.tipificaciones;
         $scope.vis_title    = "Casos por tipo";
         $scope.vis_subtitle = "Todos los casos según su tipo";
-      } else if ($scope.current_vis == "responsables") {
+      } else if (view == "responsables") {
         data_objects = $scope.stats.aggs.responsable;
         $scope.vis_title    = "Casos por responsables";
         $scope.vis_subtitle = "Todos los casos por sus responsables";
@@ -247,8 +260,9 @@ angular.module('victimas')
       return content_obj; 
     }
 
-    $scope.create_pie = function(content) {
-        var pie = new d3pie("visualization_holder", {
+    $scope.create_pie = function(content, view) {
+        var div_id = "pie_" + view; 
+        var pie = new d3pie(div_id, {
         "header": {
           "title": {
             "text": $scope.vis_title ,
@@ -271,8 +285,10 @@ angular.module('victimas')
           "location": "bottom-left"
         },
         "size": {
-          "canvasHeight": 640,
-          "canvasWidth": 1000,
+       //   "canvasHeight": 640,
+       //   "canvasWidth": 320,
+       //   "canvasHeight": 640,
+       //   "canvasWidth": 1000,
           "pieInnerRadius": "1%",
           "pieOuterRadius": "100%"
         },

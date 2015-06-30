@@ -71,7 +71,7 @@
 }
 
 .vis-icons {
-  font-size: 36px;
+  font-size: 24px;
   padding: 12px;
   border: none;  
   background-color: #fff;
@@ -79,7 +79,8 @@
   border-radius: 6px;
   box-shadow: 6px 6px 3px 0 #ccc; 
   text-align: center;
-  width: 100%;
+  width: 80px;
+  margin-right: 20px;
 }
 
 .vis-icons:hover {
@@ -90,7 +91,6 @@
 .vis-icon-wrapper p {
   margin-top: 10px;
   font-size: 1.1em;
-  color: white;
 }
 
 .no_top_margin {
@@ -98,16 +98,22 @@
 }
 
 .navigation_icons {
-  float: left;
-  position: absolute;
-  top: 20px;
-  margin-left: 400px;
-  background-color: #676A6C;
-  border-radius: 20px;  
   padding: 20px;
-  width: 350px;
 }
 
 .visualization_wrapper {
   text-align: center;
 }
+
+.navbar-header {
+  width: 100%;
+}
+
+.filter-bg {
+  background-color: white;
+}
+
+.panel-default > .panel-heading {
+  background-color: white;
+}
+

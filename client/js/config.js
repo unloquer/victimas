@@ -21,13 +21,14 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
       templateUrl: "views/entrada.html",
       data: { pageTitle: 'Victimas del Conflicto Armado en Colombia - Entrada' }
     })
-    .state('victimas', {
+    .state('visual', {
       abstract: true,
-      url: "/victimas",
+      url: "/visual",
       cache: false,
       templateUrl: "views/home.html"
     })
-    .state('victimas.mapa', {
+    .state('visual.mapa', {
+        abstract: true,
         url: "/mapa",
         cache: false,
         templateUrl: "views/mapa.html",
@@ -61,21 +62,21 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
           }
         }
     })
-    .state('victimas.ubicacion', {
-        url: "/ubicacion",
+    .state('visual.mapa.cloropleth', {
+        url: "/cloropleth",
         cache: false,
-        templateUrl: "views/ubicacion.html"
     })
-    .state('victimas.tipificaciones', {
-        url: "/tipificaciones",
+    .state('visual.stats', {
+        url: "/stats",
+        abstract: true,
         cache: false,
-        templateUrl: "views/ubicacion.html"
+        templateUrl: "views/pie.html"
     })
-    .state('victimas.responsables', {
-        url: "/responsables",
+    .state('visual.stats.pie', {
+        url: "/pie",
         cache: false,
-        templateUrl: "views/ubicacion.html"
-      });
+        templateUrl: "views/pie.html"
+   });
   }
   angular
     .module('victimas')

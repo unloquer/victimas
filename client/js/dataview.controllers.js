@@ -6,8 +6,10 @@ angular.module('victimas').
         terminal : true,
         transclude : true,
         link : function(scope, element, attrs) {
-            var content = scope.get_vis_data();
-            scope.create_pie(content);
+            scope.view = attrs["view"];
+            console.log(scope.view);
+            var content = scope.get_vis_data(scope.view);
+            scope.create_pie(content, scope.view);
         }
     };
 

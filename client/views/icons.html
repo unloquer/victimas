@@ -4,21 +4,17 @@
                       <h2 class="no_top_margin">Visualizaciones</h2> 
                       -->
                       <div class="row">
-                          <div class="col-sm-4 vis-icon-wrapper inline" ng-hide="current_vis=='mapa'">
-                          <a class="inline vis-icons" ng-click="set_visualization('mapa');"><i class="fa fa-map-marker"></i></a>
-                          <p>Mapa</p>
-                        </div>
-                        <div class="col-sm-4 vis-icon-wrapper inline" ng-hide="current_vis=='ubicacion'">
-                          <a class="inline vis-icons" ng-click="set_visualization('ubicacion');"><i class="fa fa-flag"></i></a>
-                          <p>Ubicacion</p>
-                        </div>
-                        <div class="col-sm-4 vis-icon-wrapper inline" ng-hide="current_vis=='tipificaciones'">
-                          <a class="inline vis-icons" ng-click="set_visualization('tipificaciones');"><i class="fa fa-copy"></i></a>
-                          <p>Tipificacion</p>
-                        </div>
-                        <div class="col-sm-4 vis-icon-wrapper inline" ng-hide="current_vis=='responsables'">
-                          <a class="inline vis-icons" ng-click="set_visualization('responsables');"><i class="fa fa-weixin"></i></a>
-                          <p>Responsable</p>
-                        </div>
+                          <div class="vis-icon-wrapper inline" ng-hide="current_vis=='mapa'">
+                            <a class="inline vis-icons" ng-click="set_visualization('mapa');"><i class="fa fa-map-marker"></i></a>
+                            <p>Mapa</p>
+                          </div>
+                          <div class="vis-icon-wrapper inline" ng-hide="current_vis=='stats'">
+                            <a class="inline vis-icons" ng-click="set_visualization('stats');"><i class="fa fa-flag"></i></a>
+                            <p>Estadisticas</p>
+                          </div>
+                          <div class="vis-icon-wrapper inline" ng-hide="current_vis=='records'">
+                            <a class="inline vis-icons" ng-click="set_visualization('records');"><i class="fa fa-copy"></i></a>
+                            <p>Casos</p>
+                          </div>
                       </div>
                     </div>
