@@ -1,6 +1,6 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function($scope, dataService, leafletData) {
+  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', 'Reporte', function($scope, dataService, leafletData, Reporte) {
     $scope.top = {};
     $scope.status = {};
     $scope.status.open = true;
@@ -180,7 +180,7 @@ angular.module('victimas')
     }
   }]);
 
-function Reporte() {}
-Reporte.find = (filter) => {
-  console.log(filter);
-}
+// function Reporte() {}
+// Reporte.find = (filter) => {
+//   console.log(filter);
+// }
