@@ -14,17 +14,17 @@ function search(filter, cb) {
     "filters": {
       "ubicacion": {
         "terms": {
-          "ubicacion.keyword": ""
+          "ubicacion": ""
         }
       },
       "responsable": {
         "terms": {
-          "responsable.keyword": ""
+          "responsable": ""
         }
       },
       "tipificacion": {
         "terms": {
-          "tipificacion.keyword": ""
+          "tipificacion": ""
         }
       }
     },
@@ -135,7 +135,7 @@ function search(filter, cb) {
     });
   };
 
-  all({ubicacion:"cauca,antioquis"}, (err, res) => {
+  all({ubicacion:"cauca,antioquia"}, (err, res) => {
     // console.log(res.pop().aggs.ubicacion);
     // console.log(res.map(i => i._source.ubicacion));
     console.log(res);

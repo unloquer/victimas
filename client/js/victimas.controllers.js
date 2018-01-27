@@ -1,6 +1,6 @@
 'use strict';
 angular.module('victimas')
-  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', 'Reporte', function($scope, dataService, leafletData, Reporte) {
+  .controller('VictimasCtrl', ['$scope', 'dataService', 'leafletData', function($scope, dataService, leafletData) {
     $scope.top = {};
     $scope.status = {};
     $scope.status.open = true;
@@ -179,3 +179,8 @@ angular.module('victimas')
       dc.renderAll();
     }
   }]);
+
+function Reporte() {}
+Reporte.find = (filter) => {
+  console.log(filter);
+}

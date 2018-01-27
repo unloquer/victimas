@@ -21,9 +21,17 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(s.uri, express.static('../client'))
+app.use('/', express.static('../client'))
 
-app.get('/api/reportes', async(req, res) => {
-  res.send(await api.search(req.query.filter));
+app.get('/api/reportes', (req, res) => {
+  api.search(req.query.filter, (err, data) => {
+  	res.send(data);	
+  })
 });
 
+io.on('connection', (socket) => {
+  ws = socket;
+});
+
+server.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
